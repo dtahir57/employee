@@ -68,6 +68,10 @@
 					@endif
 				</tbody>
 			</table>
+			@if(isset($calculated_salary))
+			<hr>
+			<h5 class="text-success">Calculated Salary Of {{ $employee->name }} is {{ $calculated_salary }}</h5>
+			@endif
 		</div>
 	</div>
 </div>

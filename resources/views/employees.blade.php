@@ -12,7 +12,7 @@
 			      <th scope="col">Employee Name</th>
 			      <th scope="col">Basic Salary</th>
 			      <th scope="col">Employee Type</th>
-			      <th scope="col">View Attendance</th>
+			      <th scope="col">View Details</th>
 			    </tr>
 			  </thead>
 			  <tbody>

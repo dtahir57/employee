@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Deduction;
 use App\Employee;
 use Illuminate\Http\Request;
 use Session;
@@ -47,18 +48,23 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $employee = Employee::find($request->employee_id);
-        // dd($employee->attendances);
         $attendances = [];
+        $absents_array = [];
         foreach($employee->attendances as $a)
         {
+            if ($a->pivot->is_present === 0) {
+                array_push($absents_array, $a);
+            }
             if ($request->search_month == date('m', strtotime($a->attendance_date)))
             {
-                $month = date('M', strtotime($a->attendance_date));
                 array_push($attendances, $a);
             }
         }
-        // Session::flash('search_month', 'Attendance Of Month: '.$month);
-        return view('showEmployee', compact('attendances', 'employee'));
+        $absents = count($absents_array);
+        $deduction_fee = Deduction::first();
+        $deduction = $absents * $deduction_fee->deduction;
+        $calculated_salary = $employee->basic_salary - $deduction;
+        return view('showEmployee', compact('attendances', 'employee', 'calculated_salary'));
     }
 
     /**
