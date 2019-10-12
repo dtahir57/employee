@@ -9,6 +9,9 @@
 		@if(session('updated'))
 			<li class="alert alert-success">{{ session('updated') }}</li>
 		@endif
+		@if(session('deduction_fee_missing'))
+			<li class="alert alert-danger">{{ session('deduction_fee_missing') }}</li>
+		@endif
 		<div class="col-md-3 ml-auto float-right">
 			<a href="{{ route('attendance.create') }}" type="button" class="btn btn-success">Create New Attendance</a>
 		</div>

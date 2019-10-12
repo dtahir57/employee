@@ -52,16 +52,22 @@ class EmployeeController extends Controller
         $absents_array = [];
         foreach($employee->attendances as $a)
         {
-            if ($a->pivot->is_present === 0) {
-                array_push($absents_array, $a);
-            }
             if ($request->search_month == date('m', strtotime($a->attendance_date)))
             {
                 array_push($attendances, $a);
             }
         }
+        foreach($attendances as $attendance) {
+            if ($attendance->pivot->is_present === 0) {
+                array_push($absents_array, $attendance);
+            }
+        }
         $absents = count($absents_array);
         $deduction_fee = Deduction::first();
+        if ($deduction_fee == null) {
+            Session::flash('deduction_fee_missing', 'Please Specify the deduction Fee');
+            return redirect()->route('attendance.inde');
+        }
         $deduction = $absents * $deduction_fee->deduction;
         $calculated_salary = $employee->basic_salary - $deduction;
         return view('showEmployee', compact('attendances', 'employee', 'calculated_salary'));
