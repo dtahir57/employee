@@ -1,22 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Attendance;
-use App\Employee;
+use App\Deduction;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Session;
 
-class EmployeeController extends Controller
+class DeductionController extends Controller
 {
-
-    /**
-     * Apply Auth Middleware on all methods of this class
-     */
-    public function __construct()
-    {
-        return $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +15,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::latest()->get();
-        return view('employees', compact('employees'));
+        $deduction = Deduction::first();
+        return response()->json([
+            'deduction' => $deduction
+        ]);
     }
 
     /**
@@ -46,19 +39,12 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::find($request->employee_id);
-        // dd($employee->attendances);
-        $attendances = [];
-        foreach($employee->attendances as $a)
-        {
-            if ($request->search_month == date('m', strtotime($a->attendance_date)))
-            {
-                $month = date('M', strtotime($a->attendance_date));
-                array_push($attendances, $a);
-            }
-        }
-        // Session::flash('search_month', 'Attendance Of Month: '.$month);
-        return view('showEmployee', compact('attendances', 'employee'));
+        $deduction = new Deduction;
+        $deduction->deduction = $request->deduction;
+        $deduction->save();
+        return response()->json([
+            'deduction' => $deduction
+        ]);
     }
 
     /**
@@ -69,8 +55,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
-        return view('showEmployee', compact('employee'));
+        //
     }
 
     /**
@@ -91,9 +76,14 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $deduction = Deduction::first();
+        $deduction->deduction = $request->deduction;
+        $deduction->update();
+        return response()->json([
+            'deduction' => $deduction
+        ]);
     }
 
     /**

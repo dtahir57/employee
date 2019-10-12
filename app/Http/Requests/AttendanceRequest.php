@@ -23,8 +23,19 @@ class AttendanceRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'attendance_date' => 'required|unique:attendances'
-        ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE':
+            case 'POST':
+                 return [
+                     'attendance_date' => 'required|unique:attendances'
+                 ];
+            case 'UPDATE':
+                 return [
+                    'attendance_date' => 'required'
+                 ];
+            default:
+                return [];
+        }
     }
 }

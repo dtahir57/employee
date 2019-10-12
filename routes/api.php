@@ -16,3 +16,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/deduction', 'API\DeductionController@index');
+Route::post('/deduction/save', 'API\DeductionController@store');
+Route::post('/deduction/update', 'API\DeductionController@update');

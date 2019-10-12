@@ -14,14 +14,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<h4>Attendance</h4>
-		<div class="col-md-12">
+		<div class="col-md-9">
+			<h4>Attendance</h4>
 			<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col">#</th>
-			      <th scope="col">Attendance Date</th>
-			      <th scope="col">Check Attendance</th>
+			      <th scope="col" width="10%">#</th>
+			      <th scope="col" width="60%">Attendance Date</th>
+			      <th scope="col" width="30%">Check Attendance</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -36,6 +36,9 @@
 			  	@endforeach
 			  </tbody>
 			</table>
+		</div>
+		<div class="col-md-3">
+			<deduction></deduction>
 		</div>
 	</div>
 </div>

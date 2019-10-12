@@ -12,6 +12,7 @@
 			      <th scope="col">Employee Name</th>
 			      <th scope="col">Basic Salary</th>
 			      <th scope="col">Employee Type</th>
+			      <th scope="col">View Attendance</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -21,6 +22,9 @@
 			  		<td>{{ $employee->name }}</td>
 			  		<td>{{ $employee->basic_salary }}</td>
 			  		<td>{{ $employee->employee_type }}</td>
+			  		<td>
+			  			<a href="{{ route('employee.show', $employee->id) }}" type="button" class="btn btn-success">View</a>
+			  		</td>
 			  	</tr>
 			  	@endforeach
 			  </tbody>

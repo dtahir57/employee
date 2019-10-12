@@ -20,6 +20,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/employees', 'EmployeeController@index')->name('employee.index');
+	Route::post('/employee/attendance', 'EmployeeController@store')->name('employee.store');
+	Route::get('/employee/{id}', 'EmployeeController@show')->name('employee.show');
 	Route::get('/attendances', 'AttendanceController@index')->name('attendance.index');
 	Route::get('/attendance/create', 'AttendanceController@create')->name('attendance.create');
 	Route::post('/attendance', 'AttendanceController@store')->name('attendance.store');
