@@ -96,7 +96,7 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AttendanceRequest $request, $date)
+    public function update(Request $request, $date)
     {
         $attendance = Attendance::where('attendance_date', $date)->first();
         $attendance->attendance_date = $request->attendance_date;
